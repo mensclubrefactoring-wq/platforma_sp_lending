@@ -1,0 +1,138 @@
+:root {
+  --bg: #f4f7fb;
+  --card: #ffffff;
+  --text: #1b2635;
+  --muted: #5f6b7a;
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --error: #b42318;
+  --success: #067647;
+  --border: #d0d7e2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  background: radial-gradient(circle at top right, #eef2ff, var(--bg) 45%);
+  color: var(--text);
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.container {
+  width: 100%;
+  max-width: 420px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 12px 30px rgba(16, 24, 40, 0.1);
+}
+
+h1 {
+  margin: 0 0 8px;
+  font-size: 1.7rem;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+label {
+  display: block;
+  margin: 12px 0 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+input {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+button {
+  margin-top: 16px;
+  width: 100%;
+  border: 0;
+  border-radius: 10px;
+  background: var(--primary);
+  color: #fff;
+  padding: 11px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+button:hover {
+  background: var(--primary-hover);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+.link-row {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.message {
+  margin-top: 12px;
+  min-height: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.message.error {
+  color: var(--error);
+  background: #fef2f2;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.message.success {
+  color: var(--success);
+  background: #f0fdf4;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.profile-item {
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  margin-top: 12px;
+  background: #f8faff;
+}
