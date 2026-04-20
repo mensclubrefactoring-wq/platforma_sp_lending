@@ -10,15 +10,14 @@
     />
     <style>
       :root {
-        --bg: #f8faff;
-        --surface: #ffffff;
-        --surface-soft: #f2f5ff;
-        --text: #101828;
-        --muted: #667085;
-        --primary: #4f46e5;
-        --primary-strong: #4338ca;
-        --border: #e5e7eb;
-        --shadow: 0 16px 40px rgba(16, 24, 40, 0.08);
+        --bg: #020617;
+        --surface: #0f172a;
+        --surface-soft: #1e293b;
+        --accent: #38bdf8;
+        --text: #f8fafc;
+        --muted: #94a3b8;
+        --border: #1e293b;
+        --shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
       }
 
       * {
@@ -32,10 +31,11 @@
       }
 
       body {
-        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        background: radial-gradient(circle at top left, #eef2ff 0%, var(--bg) 40%, #ffffff 100%);
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background-color: var(--bg);
         color: var(--text);
-        line-height: 1.6;
+        line-height: 1.5;
+        padding-bottom: 2rem;
       }
 
       .container {
@@ -44,15 +44,14 @@
       }
 
       header {
-        position: fixed;
+        position: sticky;
         top: 0;
-        left: 0;
-        right: 0;
         z-index: 100;
-        background: rgba(255, 255, 255, 0.8);
-        backdrop-filter: blur(8px);
+        background: rgba(2, 6, 23, 0.8);
+        backdrop-filter: blur(12px);
         border-bottom: 1px solid var(--border);
         padding: 1rem 0;
+        margin-bottom: 2rem;
       }
 
       .header-content {
@@ -63,9 +62,11 @@
 
       .logo {
         font-weight: 800;
-        font-size: 1.2rem;
-        color: var(--primary);
+        font-size: 1.25rem;
+        color: var(--accent);
         text-decoration: none;
+        letter-spacing: -0.02em;
+        text-transform: uppercase;
       }
 
       .nav-links {
@@ -77,68 +78,144 @@
       .nav-links a {
         text-decoration: none;
         color: var(--text);
-        font-weight: 600;
-        font-size: 0.95rem;
+        font-weight: 500;
+        font-size: 0.9rem;
+        transition: color 0.2s;
       }
 
-      .section {
-        padding: 5.5rem 0;
-      }
-
-      .section-title {
-        font-size: clamp(1.7rem, 4vw, 2.3rem);
-        letter-spacing: -0.02em;
-        margin-bottom: 0.85rem;
-      }
-
-      .section-lead {
-        color: var(--muted);
-        max-width: 700px;
-      }
-
-      .eyebrow {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.4rem;
-        font-size: 0.85rem;
-        font-weight: 600;
-        color: var(--primary);
-        background: #eef2ff;
-        border: 1px solid #e0e7ff;
-        border-radius: 999px;
-        padding: 0.35rem 0.8rem;
-        margin-bottom: 1rem;
-      }
-
-      .hero {
-        padding: 9.5rem 0 4.25rem;
-      }
-
-      .hero-grid {
+      /* Bento Grid Layout */
+      .bento-grid {
         display: grid;
-        grid-template-columns: 1.2fr 1fr;
-        gap: 2rem;
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: minmax(180px, auto);
+        gap: 20px;
+      }
+
+      .card {
+        background-color: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        transition: border-color 0.3s ease, transform 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card:hover {
+        border-color: var(--accent);
+        transform: translateY(-4px);
+      }
+
+      .hero-block {
+        grid-column: span 2;
+        grid-row: span 2;
+        background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+        justify-content: center;
+      }
+
+      .hero-block h1 {
+        font-size: clamp(2rem, 5vw, 2.75rem);
+        line-height: 1.1;
+        font-weight: 800;
+        margin-bottom: 1.25rem;
+        letter-spacing: -0.03em;
+      }
+
+      .hero-block p {
+        font-size: 1.1rem;
+        color: var(--muted);
+        margin-bottom: 2rem;
+      }
+
+      .stats-block {
+        grid-column: span 1;
+        grid-row: span 1;
+        text-align: center;
+        justify-content: center;
         align-items: center;
       }
 
-      .hero h1 {
-        font-size: clamp(2rem, 5vw, 3.7rem);
-        line-height: 1.1;
-        letter-spacing: -0.03em;
-        margin-bottom: 1.1rem;
+      .stats-val {
+        font-size: 3.5rem;
+        font-weight: 800;
+        color: var(--accent);
+        line-height: 1;
       }
 
-      .hero p {
+      .stats-label {
+        font-size: 0.75rem;
+        text-transform: uppercase;
         color: var(--muted);
-        font-size: clamp(1rem, 2.1vw, 1.2rem);
-        max-width: 620px;
+        letter-spacing: 0.1em;
+        margin-top: 0.5rem;
       }
 
-      .hero-actions {
-        margin-top: 1.9rem;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.75rem;
+      .task-feed-block {
+        grid-column: span 1;
+        grid-row: span 2;
+      }
+
+      .task-tag {
+        font-size: 0.65rem;
+        background: var(--accent);
+        color: #020617;
+        padding: 3px 8px;
+        border-radius: 6px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      .task-item {
+        background: var(--surface-soft);
+        padding: 16px;
+        border-radius: 16px;
+        margin-top: 12px;
+      }
+
+      .task-feed-block {
+        grid-column: span 1;
+        grid-row: span 2;
+      }
+
+      .feature-block {
+        grid-column: span 1;
+        grid-row: span 2;
+        justify-content: space-between;
+      }
+
+      .step-number {
+        font-size: 3rem;
+        font-weight: 800;
+        opacity: 0.1;
+        margin-top: -10px;
+        margin-bottom: -15px;
+      }
+
+      .feature-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+        color: var(--accent);
+      }
+
+      .cta-block {
+        grid-column: span 2;
+        grid-row: span 1;
+        background-color: var(--accent);
+        color: #020617;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 40px;
+      }
+
+      .cta-block h2 {
+        font-size: 2rem;
+        font-weight: 800;
+        margin: 0;
+        line-height: 1.1;
       }
 
       .btn {
@@ -146,501 +223,280 @@
         align-items: center;
         justify-content: center;
         gap: 0.5rem;
-        border: 1px solid transparent;
         border-radius: 12px;
-        padding: 0.78rem 1.15rem;
-        font-weight: 600;
+        padding: 0.75rem 1.25rem;
+        font-weight: 700;
         text-decoration: none;
         cursor: pointer;
-        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-      }
-
-      .btn:hover {
-        transform: translateY(-2px);
+        transition: transform 0.2s, background 0.2s;
+        border: none;
       }
 
       .btn-primary {
-        background: linear-gradient(120deg, var(--primary), #6d5ef5);
+        background: #020617;
         color: #fff;
-        box-shadow: 0 12px 24px rgba(79, 70, 229, 0.28);
       }
 
       .btn-primary:hover {
-        background: linear-gradient(120deg, var(--primary-strong), #5b50f0);
+        background: #1e293b;
       }
 
       .btn-ghost {
-        border-color: var(--border);
-        background: #fff;
-        color: var(--text);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: #fff;
       }
 
-      .hero-card,
-      .card,
-      .task-card,
-      .cta-box {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 18px;
-        box-shadow: var(--shadow);
+      .btn-ghost:hover {
+        background: rgba(255, 255, 255, 0.1);
       }
 
-      .hero-card {
-        padding: 1.2rem;
-      }
-
-      .hero-card h3 {
-        margin-bottom: 0.65rem;
-        font-size: 1.05rem;
-      }
-
-      .hero-list {
-        list-style: none;
-        display: grid;
-        gap: 0.75rem;
-      }
-
-      .hero-list li {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 0.6rem;
-        padding: 0.75rem;
-        background: var(--surface-soft);
-        border-radius: 12px;
-      }
-
-      .pill {
-        font-size: 0.8rem;
-        padding: 0.24rem 0.55rem;
-        border-radius: 999px;
-        background: #e0e7ff;
-        color: #3730a3;
-        font-weight: 600;
-      }
-
-      .grid-3,
-      .grid-2 {
-        margin-top: 2rem;
-        display: grid;
-        gap: 1rem;
-      }
-
-      .grid-3 {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-
-      .grid-2 {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .card {
-        padding: 1.2rem;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-      }
-
-      .participant-group {
-        margin-top: 2rem;
-      }
-
-      .participant-group h3 {
-        margin-bottom: 0.9rem;
-        font-size: 1.08rem;
-      }
-
-      .participant-grid {
-        display: grid;
-        gap: 1rem;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      }
-
-      .participant-card .logo-slot {
-        width: 100%;
-        min-height: 96px;
-        border: 1px dashed #c7d2fe;
-        border-radius: 12px;
-        background: #f8faff;
-        color: #6366f1;
-        display: grid;
-        place-items: center;
+      .eyebrow {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
         margin-bottom: 0.75rem;
-        font-size: 0.85rem;
-        font-weight: 600;
+        display: block;
       }
 
-      .card:hover,
-      .task-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 18px 44px rgba(16, 24, 40, 0.1);
-      }
-
-      .icon {
-        width: 34px;
-        height: 34px;
-        color: var(--primary);
-        margin-bottom: 0.8rem;
-      }
-
-      .card h3 {
-        margin-bottom: 0.55rem;
-        font-size: 1.12rem;
-      }
-
-      .card p,
-      .task-card p,
-      .audience-item li,
-      .meta-item {
+      .auth-link {
+        font-size: 0.9rem;
         color: var(--muted);
-      }
-
-      .task-card {
-        padding: 1.5rem;
-        margin-top: 2rem;
-      }
-
-      .task-header {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        gap: 0.8rem;
-        margin-bottom: 0.75rem;
-      }
-
-      .task-meta {
+        text-decoration: none;
         margin-top: 1rem;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.55rem;
-      }
-
-      .meta-item {
         display: inline-flex;
         align-items: center;
-        gap: 0.4rem;
-        border: 1px solid var(--border);
-        border-radius: 999px;
-        padding: 0.35rem 0.75rem;
-        background: #fff;
-        font-size: 0.92rem;
+        gap: 4px;
       }
 
-      .cta-box {
-        margin-top: 1.5rem;
-        padding: 1.6rem;
-        text-align: center;
+      .auth-link:hover {
+        color: var(--accent);
       }
 
-      .cta-form {
+      .participant-logo-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
         margin-top: 1rem;
+      }
+
+      .mini-logo {
+        height: 56px;
+        background: var(--surface-soft);
+        border-radius: 16px;
         display: flex;
+        align-items: center;
         justify-content: center;
-        gap: 0.6rem;
-        flex-wrap: wrap;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--muted);
+        text-align: center;
+        padding: 8px;
+        border: 1px solid transparent;
+        transition: border-color 0.2s;
       }
 
-      input[type="email"] {
-        width: min(340px, 100%);
-        border: 1px solid #d0d5dd;
-        border-radius: 12px;
-        padding: 0.78rem 0.9rem;
-        font: inherit;
-      }
-
-      .sr-only {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        border: 0;
-      }
-
-      .status {
-        margin-top: 0.75rem;
-        color: #03672f;
-        font-size: 0.95rem;
-        min-height: 1.3rem;
+      .mini-logo:hover {
+        border-color: var(--accent);
       }
 
       footer {
-        margin-top: 2rem;
-        border-top: 1px solid var(--border);
-        padding: 1.8rem 0;
+        margin-top: 4rem;
+        padding: 2rem 0;
+        text-align: center;
         color: var(--muted);
+        font-size: 0.85rem;
+        border-top: 1px solid var(--border);
+      }
+
+      .cta-form {
+        display: flex;
+        gap: 10px;
+        margin-top: 1.5rem;
+      }
+
+      input[type="email"] {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        padding: 12px 16px;
+        color: #fff;
+        flex-grow: 1;
         font-size: 0.95rem;
       }
 
+      ::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      @media (max-width: 1024px) {
+        .bento-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .cta-block {
+          grid-column: span 2;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .bento-grid {
+          grid-template-columns: 1fr;
+        }
+        .hero-block, .cta-block, .task-feed-block, .feature-block {
+          grid-column: span 1;
+        }
+        .cta-block {
+          flex-direction: column;
+          padding: 32px;
+          gap: 20px;
+          text-align: center;
+        }
+        .cta-form {
+          width: 100%;
+          flex-direction: column;
+        }
+      }
+
       .fade-in {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      .js .fade-in {
         opacity: 0;
-        transform: translateY(12px);
-        transition: opacity 0.6s ease, transform 0.6s ease;
+        transform: translateY(20px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
       }
 
-      .js .fade-in.visible {
+      .fade-in.visible {
         opacity: 1;
         transform: translateY(0);
       }
-
-      @media (max-width: 900px) {
-        .hero-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .grid-3 {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-      }
-
-      @media (max-width: 680px) {
-        .section {
-          padding: 4.1rem 0;
-        }
-
-        .grid-3,
-        .grid-2 {
-          grid-template-columns: 1fr;
-        }
-
-        .hero {
-          padding-top: 5.1rem;
-        }
-      }
-      .logo-slot {
-        width: 100px; 
-        height: 100px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-      }
-
-      .participant-logo {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: contain;
-      }
-
     </style>
   </head>
   <body>
     <header>
-      <div class="container header-content">
-        <a href="/" class="logo">Platforma SP</a>
+      <div class="header-content">
+        <a href="/" class="logo">PLATFORMA SP</a>
         <nav class="nav-links">
           <a href="#how-it-works">Как это работает</a>
-          <a href="/login.html" class="btn btn-ghost" style="padding: 0.4rem 1rem;">Войти</a>
-          <a href="/register.html" class="btn btn-primary" style="padding: 0.4rem 1rem;">Регистрация</a>
+          <a href="/login.html">Войти</a>
+          <a href="/register.html" class="btn btn-primary">Регистрация</a>
         </nav>
       </div>
     </header>
 
-    <main>
-      <section class="hero">
-        <div class="container hero-grid">
+    <main class="container">
+      <div class="bento-grid">
+        <!-- Hero Block -->
+        <article class="card hero-block fade-in">
+          <span class="eyebrow">MVP концепция</span>
+          <h1>Соединяем задачи бизнеса с решениями социального.</h1>
+          <p>Корпорации публикуют реальные запросы, социальные предприятия предлагают инновационные решения.</p>
+          <div style="display: flex; gap: 12px;">
+            <a href="/register.html" class="btn btn-primary">Разместить задачу</a>
+            <a href="#how-it-works" class="btn btn-ghost">Как это работает</a>
+          </div>
+        </article>
+
+        <!-- Stats Block 1 -->
+        <div class="card stats-block fade-in">
+          <div class="stats-val">15+</div>
+          <div class="stats-label">Крупных партнеров</div>
+        </div>
+
+        <!-- Task Feed Block -->
+        <aside class="card task-feed-block fade-in">
+          <h3 class="feature-title" style="margin-bottom: 12px;">Актуальные задачи</h3>
+          <div class="task-item">
+            <span class="task-tag">Экология</span>
+            <p style="font-size: 0.85rem; margin-top: 8px; font-weight: 600;">Переработка текстильных отходов офиса</p>
+            <p style="font-size: 0.75rem; color: var(--muted); margin-top: 4px;">Бюджет: до 500 000 ₽</p>
+          </div>
+          <div class="task-item">
+            <span class="task-tag">IT-решения</span>
+            <p style="font-size: 0.85rem; margin-top: 8px; font-weight: 600;">Доступная среда для веб-сервисов</p>
+            <p style="font-size: 0.75rem; color: var(--muted); margin-top: 4px;">Бюджет: договорной</p>
+          </div>
+          <a href="/login.html" class="auth-link">Смотреть все задачи →</a>
+        </aside>
+
+        <!-- Stats Block 2 -->
+        <div class="card stats-block fade-in">
+          <div class="stats-val">200+</div>
+          <div class="stats-label">Социальных проектов</div>
+        </div>
+
+        <!-- Feature 1: How it works -->
+        <section id="how-it-works" class="card feature-block fade-in">
+          <div class="step-number">01</div>
           <div>
-            <span class="eyebrow">MVP концепция платформы</span>
-            <h1>Соединяем задачи крупного бизнеса с решениями социального.</h1>
-            <p>
-              Единое пространство, где корпорации публикуют реальные социальные задачи,
-              а социальные предприниматели, команды и независимые специалисты предлагают
-              конкретные решения с понятными сроками и бюджетом.
-            </p>
-            <div class="hero-actions">
-              <a class="btn btn-primary" href="/register.html">Создать задачу</a>
-              <a class="btn btn-ghost" href="/register.html">Предложить решение</a>
+            <h3 class="feature-title">Для кого это?</h3>
+            <p style="font-size: 0.9rem; color: var(--muted);">Крупный бизнес находит ответственных поставщиков, социальные предприятия — стабильные заказы.</p>
+          </div>
+        </section>
+
+        <!-- Feature 2: Participants -->
+        <section class="card feature-block fade-in" style="grid-column: span 1;">
+          <div>
+            <h3 class="feature-title">Участники</h3>
+            <div class="participant-logo-grid">
+              <div class="mini-logo">Сбер</div>
+              <div class="mini-logo">Авито</div>
+              <div class="mini-logo">Яндекс</div>
+              <div class="mini-logo">НКО</div>
+              <div class="mini-logo">Фонды</div>
+              <div class="mini-logo">Стартапы</div>
             </div>
           </div>
+        </section>
 
-          <aside class="hero-card fade-in" aria-label="Пример активности">
-            <h3>Сейчас на платформе</h3>
-            <ul class="hero-list">
-              <li>
-                <span>Закупка сувенирной продукции</span>
-                <span class="pill">12 откликов</span>
-              </li>
-              <li>
-                <span>Проведение меропритяие с инклюзией</span>
-                <span class="pill">8 откликов</span>
-              </li>
-              <li>
-                <span>Организация социального маркета</span>
-                <span class="pill">15 откликов</span>
-              </li>
+        <!-- Feature 3: Advantages -->
+        <section class="card feature-block fade-in">
+          <div class="step-number">02</div>
+          <div>
+            <h3 class="feature-title">Преимущества</h3>
+            <ul style="list-style: none; font-size: 0.85rem; color: var(--muted); display: grid; gap: 8px;">
+              <li>• Прямой доступ к заказчикам</li>
+              <li>• Прозрачная система тендеров</li>
+              <li>• Верификация участников</li>
             </ul>
-          </aside>
-        </div>
-      </section>
-
-      <section class="section" id="how-it-works">
-        <div class="container">
-          <span class="eyebrow">Как это работает</span>
-          <h2 class="section-title">Простой процесс в 3 шага</h2>
-          <p class="section-lead">
-            Прозрачный workflow помогает быстро находить исполнителей и отбирать
-            сильные идеи без лишней бюрократии.
-          </p>
-
-          <div class="grid-3">
-            <article class="card fade-in">
-              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M4 6a2 2 0 0 1 2-2h9l5 5v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6z" stroke="currentColor" stroke-width="1.7"/>
-                <path d="M13 4v5h5" stroke="currentColor" stroke-width="1.7"/>
-              </svg>
-              <h3>1. Бизнес публикует задачу</h3>
-              <p>
-                Компания описывает цель, ограничения, бюджет и дедлайн. Всё
-                структурировано в одной карточке.
-              </p>
-            </article>
-
-            <article class="card fade-in">
-              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M3 8h18M7 4v4m10-4v4M6 12h4m-4 4h8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-                <rect x="3" y="5" width="18" height="15" rx="2" stroke="currentColor" stroke-width="1.7"/>
-              </svg>
-              <h3>2. Социальный бизнес предлагает решения</h3>
-              <p>
-                Подрядчики, эксперты и команды отправляют свои подходы с оценкой
-                сроков, стоимости и ценности.
-              </p>
-            </article>
-
-            <article class="card fade-in">
-              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/>
-                <path d="m8.5 12.2 2.3 2.3 4.8-5.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              <h3>3. Бизнес выбирает лучшее</h3>
-              <p>
-                Заказчик сравнивает отклики, общается с исполнителями и утверждает
-                финальное решение.
-              </p>
-            </article>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section class="section">
-        <div class="container">
-          <span class="eyebrow">Для кого платформа</span>
-          <h2 class="section-title">Две стороны — единая ценность</h2>
-          <div class="grid-2">
-            <article class="card fade-in audience-item">
-              <h3>Крупный бизнес</h3>
-              <ul>
-                <li>Доступ к широкому пулу решений из разных отраслей.</li>
-                <li>Снижение time-to-solution за счёт конкурентного отбора.</li>
-                <li>Понятные предложения с фокусом на измеримый результат.</li>
-              </ul>
-            </article>
-
-            <article class="card fade-in audience-item">
-              <h3>Социальный бизнес</h3>
-              <ul>
-                <li>Прямой выход на крупных заказчиков без длинных цепочек.</li>
-                <li>Возможность показать экспертизу на реальных социальных задачах.</li>
-                <li>Рост портфолио и предсказуемый pipeline проектов.</li>
-              </ul>
-            </article>
+        <!-- CTA Block -->
+        <section id="cta" class="card cta-block fade-in">
+          <div>
+            <h2 style="color: #020617;">Готовы начать?</h2>
+            <p style="color: #020617; opacity: 0.8; margin-top: 8px;">Присоединяйтесь к платформе возможностей.</p>
           </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="container">
-          <span class="eyebrow">Примеры участников</span>
-          <h2 class="section-title">Отдельные карточки участников платформы</h2>
-
-          <div class="participant-group">
-            <h3>Крупный бизнес</h3>
-            <div class="participant-grid">
-              <article class="card fade-in participant-card">
-                <div class="logo-slot">SBER</div>
-                <h4>Сбер</h4>
-                <p>Краткое описание компании и её интереса к задачам платформы.</p>
-              </article>
-              <article class="card fade-in participant-card">
-                <div class="logo-slot">AVITO</div>
-                <h4>Авито</h4>
-                <p>Краткое описание компании и её интереса к задачам платформы.</p>
-              </article>
-              <article class="card fade-in participant-card">
-                <div class="logo-slot">YANDEX</div>
-                <h4>Яндекс</h4>
-                <p>Краткое описание компании и её интереса к задачам платформы.</p>
-              </article>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="cta">
-        <div class="container">
-          <div class="cta-box fade-in">
-            <span class="eyebrow">Call to Action</span>
-            <h2 class="section-title">Получите ранний доступ к платформе</h2>
-            <p class="section-lead" style="margin: 0 auto;">
-              Оставьте email — пришлём приглашение в MVP и чек-лист по запуску
-              первой задачи.
-            </p>
-            <form class="cta-form" id="lead-form">
-              <label class="sr-only" for="email">Email</label>
-              <input id="email" type="email" required placeholder="you@company.com" />
-              <button class="btn btn-primary" type="submit">Оставить заявку</button>
-            </form>
-            <p class="status" id="form-status" aria-live="polite"></p>
-          </div>
-        </div>
-      </section>
+          <form class="cta-form" id="lead-form">
+            <input type="email" id="lead-email" placeholder="Ваш Email" required />
+            <button type="submit" class="btn btn-primary">Узнать больше</button>
+          </form>
+          <div id="cta-status" style="position: absolute; bottom: 10px; right: 40px; font-size: 0.75rem; color: #020617;"></div>
+        </section>
+      </div>
     </main>
 
-    <footer>
-      <div class="container">© 2026 Platforma SP — Demo Landing Page (MVP)</div>
+    <footer class="container">
+      <p>© 2026 PLATFORMA SP — Demo Landing Page (MVP)</p>
     </footer>
 
     <script>
-      document.documentElement.classList.add("js");
-
       const fadeItems = document.querySelectorAll(".fade-in");
-
-      if ("IntersectionObserver" in window) {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add("visible");
-                observer.unobserve(entry.target);
-              }
-            });
-          },
-          { threshold: 0.2 }
-        );
-
-        fadeItems.forEach((el) => observer.observe(el));
-      } else {
-        fadeItems.forEach((el) => el.classList.add("visible"));
-      }
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      fadeItems.forEach((el) => observer.observe(el));
 
       const leadForm = document.getElementById("lead-form");
-      const status = document.getElementById("form-status");
+      const status = document.getElementById("cta-status");
 
-      leadForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-        const email = document.getElementById("email").value.trim();
-
-        if (!email) {
-          status.textContent = "Пожалуйста, введите email.";
-          return;
-        }
-
-        status.textContent = "Спасибо! Заявка принята — мы свяжемся с вами.";
+      leadForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        status.textContent = "Заявка принята! Спасибо.";
         leadForm.reset();
       });
     </script>

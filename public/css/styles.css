@@ -1,13 +1,13 @@
 :root {
-  --bg: #f4f7fb;
-  --card: #ffffff;
-  --text: #1b2635;
-  --muted: #5f6b7a;
-  --primary: #4f46e5;
-  --primary-hover: #4338ca;
-  --error: #b42318;
-  --success: #067647;
-  --border: #d0d7e2;
+  --bg: #020617;
+  --card: #0f172a;
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  --primary: #38bdf8;
+  --primary-hover: #0ea5e9;
+  --error: #ef4444;
+  --success: #10b981;
+  --border: #1e293b;
 }
 
 * {
@@ -17,8 +17,9 @@
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: "Segoe UI", Tahoma, sans-serif;
-  background: radial-gradient(circle at top right, #eef2ff, var(--bg) 45%);
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  background-color: var(--bg);
+  background-image: radial-gradient(circle at top right, #1e1b4b, transparent 50%);
   color: var(--text);
   display: grid;
   place-items: center;
@@ -30,61 +31,67 @@ body {
   max-width: 420px;
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 24px;
-  box-shadow: 0 12px 30px rgba(16, 24, 40, 0.1);
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
 }
 
 h1 {
   margin: 0 0 8px;
-  font-size: 1.7rem;
+  font-size: 1.75rem;
+  font-weight: 800;
   letter-spacing: -0.02em;
 }
 
 .subtitle {
-  margin: 0 0 18px;
+  margin: 0 0 24px;
   color: var(--muted);
   font-size: 0.95rem;
 }
 
 label {
   display: block;
-  margin: 12px 0 6px;
+  margin: 16px 0 6px;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 input {
   width: 100%;
+  background: #1e293b;
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 10px 12px;
+  border-radius: 12px;
+  padding: 12px;
   font-size: 1rem;
+  color: var(--text);
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 input:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.1);
 }
 
 button {
-  margin-top: 16px;
+  margin-top: 24px;
   width: 100%;
   border: 0;
-  border-radius: 10px;
+  border-radius: 12px;
   background: var(--primary);
-  color: #fff;
-  padding: 11px;
+  color: #020617;
+  padding: 14px;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
+  transition: opacity 0.2s, transform 0.1s;
 }
 
 button:hover {
-  background: var(--primary-hover);
+  opacity: 0.9;
 }
 
 button:active {
@@ -92,9 +99,10 @@ button:active {
 }
 
 .link-row {
-  margin-top: 14px;
+  margin-top: 20px;
   text-align: center;
   font-size: 0.9rem;
+  color: var(--muted);
 }
 
 a {
@@ -108,31 +116,29 @@ a:hover {
 }
 
 .message {
-  margin-top: 12px;
-  min-height: 20px;
-  font-size: 0.85rem;
+  margin-top: 16px;
+  min-height: 24px;
+  font-size: 0.9rem;
   font-weight: 500;
   text-align: center;
+  padding: 10px;
+  border-radius: 12px;
 }
 
 .message.error {
   color: var(--error);
-  background: #fef2f2;
-  padding: 8px;
-  border-radius: 8px;
+  background: rgba(239, 68, 68, 0.1);
 }
 
 .message.success {
   color: var(--success);
-  background: #f0fdf4;
-  padding: 8px;
-  border-radius: 8px;
+  background: rgba(16, 185, 129, 0.1);
 }
 
 .profile-item {
-  border: 1px dashed var(--border);
-  border-radius: 10px;
-  padding: 12px;
-  margin-top: 12px;
-  background: #f8faff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.03);
 }
